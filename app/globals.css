@@ -78,96 +78,96 @@
   --shadow-lg: 0 16px 40px -8px hsl(var(--shadow-hsl) / 0.18);
 }
 
-/* Light — "warm-cream studio" --------------------------------------------- */
+/* Light — "blush studio" (soft pastels, one dusty-rose accent) ------------- */
 :root {
-  --background: #faf7f2;   /* warm cream */
-  --foreground: #3d3a34;   /* warm ink */
+  --background: #fbf6f7;   /* soft blush paper */
+  --foreground: #4b424a;   /* warm plum-charcoal */
   --card: #ffffff;
-  --card-foreground: #3d3a34;
+  --card-foreground: #4b424a;
   --popover: #ffffff;
-  --popover-foreground: #3d3a34;
+  --popover-foreground: #4b424a;
 
-  --primary: #4e7a60;      /* studio sage — deepened so white text passes AA */
+  --primary: #a6547a;      /* dusty rose — the one accent (AA with white) */
   --primary-foreground: #ffffff;
-  --secondary: #efeae1;    /* quiet greige, not a pastel */
-  --secondary-foreground: #4a453e;
-  --muted: #f1ece4;
-  --muted-foreground: #736c61;
-  --accent: #ece6dc;       /* hover tint (a surface, not the brand) */
-  --accent-foreground: #4a453e;
-  --destructive: #c0503f;  /* warm brick, danger only */
+  --secondary: #efe3ec;    /* soft lavender-pink surface */
+  --secondary-foreground: #59495a;
+  --muted: #f4edf1;        /* pale mauve-gray */
+  --muted-foreground: #7e6f79;
+  --accent: #e8ddec;       /* soft lavender hover tint */
+  --accent-foreground: #574a5c;
+  --destructive: #cf6a6a;  /* soft warm red, danger only */
   --destructive-foreground: #ffffff;
-  --border: #e4ddd1;
-  --input: #e4ddd1;
-  --ring: #4e7a60;
+  --border: #ecdfe8;
+  --input: #ecdfe8;
+  --ring: #a6547a;
 
-  --success: #4e7a60;      --success-foreground: #ffffff;
-  --warning: #b26a00;      --warning-foreground: #ffffff;
-  --info: #3f6f99;         --info-foreground: #ffffff;
+  --success: #6fa37e;      --success-foreground: #ffffff;
+  --warning: #d9975a;      --warning-foreground: #ffffff;
+  --info: #7f9fd6;         --info-foreground: #ffffff;
 
-  /* Soft wellness pastels — charts & category legends only */
-  --chart-1: #6fa384;      /* sage */
-  --chart-2: #b79ad9;      /* lavender */
-  --chart-3: #e19aa8;      /* rose */
-  --chart-4: #e6b06a;      /* peach */
-  --chart-5: #7fb0d9;      /* powder blue */
+  /* Soft wellness pastels — chart ramp & category legends */
+  --chart-1: #c9a0d1;      /* lavender */
+  --chart-2: #eaa3b8;      /* rose */
+  --chart-3: #f2bd9c;      /* peach */
+  --chart-4: #9fc1e8;      /* powder blue */
+  --chart-5: #a9cdae;      /* sage */
 
-  --sidebar: #f3f0e9;
-  --sidebar-foreground: #3d3a34;
-  --sidebar-primary: #4e7a60;
+  --sidebar: #f6eef4;      /* soft lavender-blush */
+  --sidebar-foreground: #4b424a;
+  --sidebar-primary: #a6547a;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e8e2d6;
-  --sidebar-accent-foreground: #3d3a34;
-  --sidebar-border: #e4ddd1;
-  --sidebar-ring: #4e7a60;
+  --sidebar-accent: #ecdfea;
+  --sidebar-accent-foreground: #4b424a;
+  --sidebar-border: #ecdfe8;
+  --sidebar-ring: #a6547a;
 
   --radius: 10px;
-  --shadow-hsl: 36 20% 30%;
+  --shadow-hsl: 330 22% 42%;
 }
 
-/* Dark — "studio at dusk" -------------------------------------------------- */
+/* Dark — "blush at dusk" (soft plum surfaces, lifted rose) ----------------- */
 .dark {
-  --background: #1a1815;   /* warm near-black */
-  --foreground: #ede7dd;
-  --card: #221f1b;
-  --card-foreground: #ede7dd;
-  --popover: #262320;
-  --popover-foreground: #ede7dd;
+  --background: #1e1820;   /* warm plum near-black */
+  --foreground: #eee4ec;
+  --card: #271f29;
+  --card-foreground: #eee4ec;
+  --popover: #2b2230;
+  --popover-foreground: #eee4ec;
 
-  --primary: #7fb495;      /* lifted sage for dark surfaces */
-  --primary-foreground: #14201a;
-  --secondary: #2b2823;
-  --secondary-foreground: #ede7dd;
-  --muted: #2b2823;
-  --muted-foreground: #a79e90;
-  --accent: #302c27;
-  --accent-foreground: #ede7dd;
-  --destructive: #d3675c;
-  --destructive-foreground: #1a1815;
-  --border: #35312b;
-  --input: #35312b;
-  --ring: #7fb495;
+  --primary: #d98faa;      /* lifted dusty rose */
+  --primary-foreground: #2a1520;
+  --secondary: #322836;
+  --secondary-foreground: #eee4ec;
+  --muted: #322836;
+  --muted-foreground: #b0a2ac;
+  --accent: #382c3d;
+  --accent-foreground: #eee4ec;
+  --destructive: #e08585;
+  --destructive-foreground: #1e1820;
+  --border: #3d3140;
+  --input: #3d3140;
+  --ring: #d98faa;
 
-  --success: #7fb495;      --success-foreground: #14201a;
-  --warning: #e0a458;      --warning-foreground: #1a1815;
-  --info: #7fb0d9;         --info-foreground: #14201a;
+  --success: #8fbf9e;      --success-foreground: #14201a;
+  --warning: #e0a458;      --warning-foreground: #1e1820;
+  --info: #93b3e8;         --info-foreground: #141a24;
 
-  --chart-1: #7fb495;
-  --chart-2: #c3aee6;
-  --chart-3: #e6a9b6;
-  --chart-4: #ecc07e;
-  --chart-5: #93c2e8;
+  --chart-1: #d3aede;
+  --chart-2: #ecaec0;
+  --chart-3: #f2c79e;
+  --chart-4: #a9c8ee;
+  --chart-5: #a9d3b5;
 
-  --sidebar: #201d19;
-  --sidebar-foreground: #ede7dd;
-  --sidebar-primary: #7fb495;
-  --sidebar-primary-foreground: #14201a;
-  --sidebar-accent: #2b2823;
-  --sidebar-accent-foreground: #ede7dd;
-  --sidebar-border: #35312b;
-  --sidebar-ring: #7fb495;
+  --sidebar: #241c26;
+  --sidebar-foreground: #eee4ec;
+  --sidebar-primary: #d98faa;
+  --sidebar-primary-foreground: #2a1520;
+  --sidebar-accent: #322836;
+  --sidebar-accent-foreground: #eee4ec;
+  --sidebar-border: #3d3140;
+  --sidebar-ring: #d98faa;
 
-  --shadow-hsl: 36 12% 4%;
+  --shadow-hsl: 330 15% 4%;
 }
 
 @layer base {

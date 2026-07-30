@@ -8,10 +8,16 @@ the same rules with a wellness-appropriate palette.
 
 ## Identity concept
 
-**A warm-cream studio.** The surface is warm paper in light, dim dusk in dark,
-with ONE grounding accent — **studio sage**. Calm comes from space and
+**A blush studio.** Soft pastel surfaces — blush + lavender paper in light, warm
+plum at dusk in dark — with ONE accent: **dusty rose**. Calm comes from space and
 restraint, not decoration. The product should feel like a deep breath, not a
 SaaS dashboard — even though the admin surface is dense.
+
+> Palette history: shipped first as "warm-cream + sage" (neutral, house-default).
+> Moved to the soft-pastel dusty-rose/lavender direction at the user's request
+> ("more appealing … pastels"). The house *discipline* is unchanged — pastels are
+> executed with real AA contrast, dark-mode parity, and no gradient clichés; they
+> are not the pastel-gradient cliché the house rules still forbid.
 
 ## Hard rules (inherited from the house style)
 
