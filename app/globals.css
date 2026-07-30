@@ -127,26 +127,26 @@
 
 /* Dark — "blush at dusk" (soft plum surfaces, lifted rose) ----------------- */
 .dark {
-  --background: #1e1820;   /* warm plum near-black */
-  --foreground: #eee4ec;
-  --card: #271f29;
-  --card-foreground: #eee4ec;
-  --popover: #2b2230;
-  --popover-foreground: #eee4ec;
+  --background: #322b39;   /* soft warm plum dusk — not black */
+  --foreground: #f1e9ef;
+  --card: #3c3444;
+  --card-foreground: #f1e9ef;
+  --popover: #413848;
+  --popover-foreground: #f1e9ef;
 
-  --primary: #d98faa;      /* lifted dusty rose */
+  --primary: #e39fb7;      /* lifted dusty rose */
   --primary-foreground: #2a1520;
-  --secondary: #322836;
-  --secondary-foreground: #eee4ec;
-  --muted: #322836;
-  --muted-foreground: #b0a2ac;
-  --accent: #382c3d;
-  --accent-foreground: #eee4ec;
-  --destructive: #e08585;
-  --destructive-foreground: #1e1820;
-  --border: #3d3140;
-  --input: #3d3140;
-  --ring: #d98faa;
+  --secondary: #423a49;
+  --secondary-foreground: #f1e9ef;
+  --muted: #423a49;
+  --muted-foreground: #bcaeb8;
+  --accent: #4a4051;
+  --accent-foreground: #f1e9ef;
+  --destructive: #e58a8a;
+  --destructive-foreground: #2a1520;
+  --border: #4c4351;
+  --input: #4c4351;
+  --ring: #e39fb7;
 
   --success: #8fbf9e;      --success-foreground: #14201a;
   --warning: #e0a458;      --warning-foreground: #1e1820;
@@ -158,14 +158,14 @@
   --chart-4: #a9c8ee;
   --chart-5: #a9d3b5;
 
-  --sidebar: #241c26;
-  --sidebar-foreground: #eee4ec;
-  --sidebar-primary: #d98faa;
+  --sidebar: #2c2632;
+  --sidebar-foreground: #f1e9ef;
+  --sidebar-primary: #e39fb7;
   --sidebar-primary-foreground: #2a1520;
-  --sidebar-accent: #322836;
-  --sidebar-accent-foreground: #eee4ec;
-  --sidebar-border: #3d3140;
-  --sidebar-ring: #d98faa;
+  --sidebar-accent: #423a49;
+  --sidebar-accent-foreground: #f1e9ef;
+  --sidebar-border: #4c4351;
+  --sidebar-ring: #e39fb7;
 
   --shadow-hsl: 330 15% 4%;
 }
