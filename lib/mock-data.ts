@@ -1,5 +1,6 @@
 // Mock data storage using localStorage
-const STORAGE_KEY = "trailside_yoga_mock_data"
+// Bump the suffix whenever the seed shape/volume changes to force a reseed.
+const STORAGE_KEY = "trailside_yoga_mock_data_v2"
 
 export interface MockUser {
   id: string
@@ -707,8 +708,8 @@ const initializeMockData = () => {
       },
     ],
 
-    bookings: [],
-    memberships: [],
+    bookings: [] as MockBooking[],
+    memberships: [] as MockMembership[],
 
     instructors: [
       {
@@ -926,7 +927,113 @@ const initializeMockData = () => {
     ],
   }
 
+  // --- Enrich seed volume so every surface has shape (bookings, memberships,
+  //     revenue, a real client roster). The 3 hand-authored clients stay first. ---
+  const roster = mockData.clients as MockUser[]
+  roster.push(...generateClients(57))
+  mockData.memberships = generateMemberships(roster, mockData.membershipTypes)
+  mockData.bookings = generateBookings(roster, mockData.classInstances)
+
   return mockData
+}
+
+// Deterministic-enough pseudo-random helper (stable-ish demo without a full PRNG).
+function pick<T>(arr: T[], i: number): T {
+  return arr[i % arr.length]
+}
+
+// ~60-client roster, ids continue after the hand-authored client-1..3.
+function generateClients(count: number): MockUser[] {
+  const first = [
+    "Emma", "Liam", "Olivia", "Noah", "Ava", "Ethan", "Sophia", "Mason", "Isabella", "Lucas",
+    "Mia", "Oliver", "Amelia", "Elijah", "Harper", "James", "Evelyn", "Ben", "Abigail", "Henry",
+    "Ella", "Jack", "Grace", "Leo", "Chloe", "Sam", "Nora", "David", "Zoe", "Aria",
+  ]
+  const last = [
+    "Carter", "Nguyen", "Patel", "Kim", "Garcia", "Brooks", "Reyes", "Foster", "Hughes", "Bennett",
+    "Rivera", "Coleman", "Ward", "Price", "Long", "Barnes", "Ross", "Powell", "Sanders", "Perry",
+  ]
+  const levels: MockUser["skill_level"][] = ["beginner", "intermediate", "advanced"]
+  const styles = ["Vinyasa", "Yin", "Power Yoga", "Restorative", "Hatha", "Meditation"]
+  const clients: MockUser[] = []
+  for (let n = 0; n < count; n++) {
+    const id = n + 4
+    const fn = pick(first, n)
+    const ln = pick(last, Math.floor(n / 3) + n)
+    const joinMonth = (n % 12) + 1
+    clients.push({
+      id: `client-${id}`,
+      email: `${fn.toLowerCase()}.${ln.toLowerCase()}${id}@email.com`,
+      full_name: `${fn} ${ln}`,
+      role: "client",
+      phone: `555-${String(2000 + id).padStart(4, "0")}`,
+      date_of_birth: `19${70 + (n % 30)}-${String((n % 12) + 1).padStart(2, "0")}-15`,
+      joined_date: `2024-${String(joinMonth).padStart(2, "0")}-0${(n % 9) + 1}`,
+      skill_level: pick(levels, n),
+      preferences: [pick(styles, n), pick(styles, n + 2)],
+      tags: n % 5 === 0 ? ["vip"] : n % 3 === 0 ? ["new"] : ["member"],
+      waiver_signed_date: `2024-${String(joinMonth).padStart(2, "0")}-0${(n % 9) + 1}`,
+    })
+  }
+  return clients
+}
+
+// ~40 active memberships spread across the roster and plan types.
+function generateMemberships(
+  clients: MockUser[],
+  types: { id: string; name: string; class_count?: number }[],
+): MockMembership[] {
+  const memberships: MockMembership[] = []
+  const now = Date.now()
+  const day = 24 * 60 * 60 * 1000
+  clients.slice(0, 48).forEach((client, i) => {
+    const type = pick(types, i)
+    // ~1 in 6 lapsed, the rest active.
+    const status: MockMembership["status"] = i % 6 === 5 ? "expired" : i % 11 === 10 ? "cancelled" : "active"
+    const started = new Date(now - ((i % 10) + 1) * 30 * day)
+    const ends = new Date(started.getTime() + 365 * day)
+    memberships.push({
+      id: `membership-${i + 1}`,
+      user_id: client.id,
+      membership_type_id: type.id,
+      type_name: type.name,
+      status,
+      start_date: started.toISOString().split("T")[0],
+      end_date: ends.toISOString().split("T")[0],
+      classes_remaining: type.class_count ? Math.max(0, type.class_count - (i % (type.class_count + 1))) : undefined,
+      auto_renew: i % 3 !== 0,
+    })
+  })
+  return memberships
+}
+
+// ~400 bookings across the roster and generated class instances. Past instances
+// resolve to attended/no-show/cancelled; future instances to confirmed.
+function generateBookings(clients: MockUser[], instances: MockClassInstance[]): MockBooking[] {
+  const bookings: MockBooking[] = []
+  if (instances.length === 0) return bookings
+  const todayStr = new Date().toISOString().split("T")[0]
+  const seen = new Set<string>()
+  let idx = 0
+  for (let n = 0; n < 420; n++) {
+    const client = pick(clients, n * 7 + 1)
+    const instance = pick(instances, n * 3 + n)
+    const key = `${client.id}:${instance.id}`
+    if (seen.has(key)) continue
+    seen.add(key)
+    const isPast = instance.date < todayStr
+    let status: MockBooking["status"] = "confirmed"
+    if (isPast) status = n % 9 === 0 ? "no-show" : n % 7 === 0 ? "cancelled" : "attended"
+    bookings.push({
+      id: `booking-${++idx}`,
+      user_id: client.id,
+      class_instance_id: instance.id,
+      status,
+      checked_in: status === "attended",
+      created_at: new Date(new Date(instance.date).getTime() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    })
+  }
+  return bookings
 }
 
 // Helper function to generate class instances for the next 14 days
