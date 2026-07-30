@@ -71,7 +71,7 @@ function InstructorsContent() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredInstructors.map((instructor) => (
           <Card key={instructor.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-            <div className="h-48 bg-gradient-to-br from-secondary to-accent flex items-center justify-center">
+            <div className="h-48 bg-muted flex items-center justify-center">
               <div className="w-24 h-24 rounded-full bg-white/90 flex items-center justify-center text-3xl font-bold text-primary">
                 {instructor.full_name?.split(" ").map((n) => n[0]).join("")}
               </div>

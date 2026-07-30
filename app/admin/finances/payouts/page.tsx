@@ -6,6 +6,11 @@ import { Plus } from "lucide-react"
 
 export default async function PayoutsPage() {
   const supabase = await createServerClient()
+  if (!supabase) return (
+    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
+      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
+    </div>
+  )
 
   const { data: commissions } = await supabase
     .from("instructor_commissions")

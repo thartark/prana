@@ -4,6 +4,11 @@ import { Badge } from "@/components/ui/badge"
 
 export default async function InstructorPayrollPage({ params }: { params: { id: string } }) {
   const supabase = await createServerClient()
+  if (!supabase) return (
+    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
+      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
+    </div>
+  )
 
   const { data: instructor } = await supabase.from("profiles").select("*").eq("id", params.id).single()
 

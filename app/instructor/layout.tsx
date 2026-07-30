@@ -8,19 +8,23 @@ import { Calendar, Clock, User } from "lucide-react"
 export default async function InstructorLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  // Mock mode (no Supabase): skip the auth gate and render the portal shell so
+  // it stays browsable; child pages show their own demo-mode notices.
+  if (supabase) {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
 
-  if (!user) {
-    redirect("/auth/login")
-  }
+    if (!user) {
+      redirect("/auth/login")
+    }
 
-  // Check if user is instructor or admin
-  const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single()
+    // Check if user is instructor or admin
+    const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single()
 
-  if (profile?.role !== "instructor" && profile?.role !== "admin") {
-    redirect("/dashboard")
+    if (profile?.role !== "instructor" && profile?.role !== "admin") {
+      redirect("/dashboard")
+    }
   }
 
   return (

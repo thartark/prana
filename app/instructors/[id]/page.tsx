@@ -97,7 +97,7 @@ export default function InstructorDetailPage() {
           <Card>
             <CardContent className="pt-6">
               <div className="text-center">
-                <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center text-4xl font-bold text-primary mb-4">
+                <div className="w-32 h-32 mx-auto rounded-full bg-muted flex items-center justify-center text-4xl font-bold text-primary mb-4">
                   {instructor.full_name?.split(" ").map((n) => n[0]).join("")}
                 </div>
                 <h1 className="text-2xl font-bold mb-1">{instructor.full_name}</h1>

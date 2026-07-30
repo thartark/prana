@@ -16,7 +16,8 @@ export default async function CheckInPage() {
     const mockData = getMockData()
     todayInstances = mockData.classInstances
       .filter((instance: any) => {
-        const instanceDate = new Date(instance.scheduled_date).toISOString().split("T")[0]
+        // Mock instances store `date` (YYYY-MM-DD), not the SQL `scheduled_date`.
+        const instanceDate = instance.date ?? instance.scheduled_date
         return instanceDate === today && instance.status === "scheduled"
       })
       .map((instance: any) => {

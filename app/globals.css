@@ -3,92 +3,23 @@
 
 @custom-variant dark (&:is(.dark *));
 
-:root {
-  /* Wellness Color Palette - Exact Hex Values */
-  --soft-lavender: #E6D5F5;
-  --pale-sage: #D4E7D7;
-  --dusty-rose: #F5D5DB;
-  --light-peach: #FFECD1;
-  --powder-blue: #D5E5F5;
-  --warm-cream: #FAF7F2;
-  --soft-charcoal: #6B6B6B;
-  --light-gray: #F5F5F5;
-  --medium-sage: #8FB89C;
+/* ---------------------------------------------------------------------------
+   PRANA — design tokens (single source of truth)
+   Components reference these via Tailwind utilities (bg-background,
+   text-muted-foreground, …). No raw hex should appear in any component.
 
-  /* Design Token Mappings - Using exact wellness colors */
-  --background: #FAF7F2; /* Warm Cream - soft neutral base */
-  --foreground: #6B6B6B; /* Soft Charcoal - high-readability text */
-  --card: #FFFFFF;
-  --card-foreground: #6B6B6B;
-  --popover: #FFFFFF;
-  --popover-foreground: #6B6B6B;
-  --primary: #8FB89C; /* Medium Sage - primary action color */
-  --primary-foreground: #FFFFFF;
-  --secondary: #E6D5F5; /* Soft Lavender - calm, mindfulness */
-  --secondary-foreground: #4A4A4A;
-  --muted: #F5F5F5; /* Light Gray - subtle separation */
-  --muted-foreground: #7A7A7A;
-  --accent: #F5D5DB; /* Dusty Rose - warmth and connection */
-  --accent-foreground: #4A4A4A;
-  --destructive: #E57373;
-  --destructive-foreground: #FFFFFF;
-  --border: #E8E8E8;
-  --input: #F5F5F5;
-  --ring: #8FB89C;
-  --chart-1: #8FB89C; /* Medium Sage */
-  --chart-2: #E6D5F5; /* Soft Lavender */
-  --chart-3: #F5D5DB; /* Dusty Rose */
-  --chart-4: #FFECD1; /* Light Peach */
-  --chart-5: #D5E5F5; /* Powder Blue */
-  --radius: 0.625rem;
-  --sidebar: #D4E7D7; /* Pale Sage - grounding navigation */
-  --sidebar-foreground: #4A4A4A;
-  --sidebar-primary: #8FB89C;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #E6D5F5; /* Soft Lavender */
-  --sidebar-accent-foreground: #4A4A4A;
-  --sidebar-border: #C5D8C8;
-  --sidebar-ring: #8FB89C;
-}
-
-.dark {
-  --background: oklch(0.15 0.01 140);
-  --foreground: oklch(0.92 0.005 140);
-  --card: oklch(0.18 0.01 140);
-  --card-foreground: oklch(0.92 0.005 140);
-  --popover: oklch(0.18 0.01 140);
-  --popover-foreground: oklch(0.92 0.005 140);
-  --primary: oklch(0.65 0.1 155);
-  --primary-foreground: oklch(0.15 0.01 140);
-  --secondary: oklch(0.3 0.04 300);
-  --secondary-foreground: oklch(0.92 0.005 140);
-  --muted: oklch(0.22 0.01 140);
-  --muted-foreground: oklch(0.65 0.01 140);
-  --accent: oklch(0.35 0.04 340);
-  --accent-foreground: oklch(0.92 0.005 140);
-  --destructive: oklch(0.5 0.2 27.325);
-  --destructive-foreground: oklch(0.92 0.005 140);
-  --border: oklch(0.28 0.01 140);
-  --input: oklch(0.28 0.01 140);
-  --ring: oklch(0.65 0.1 155);
-  --chart-1: oklch(0.65 0.1 155);
-  --chart-2: oklch(0.7 0.08 300);
-  --chart-3: oklch(0.68 0.06 340);
-  --chart-4: oklch(0.72 0.06 40);
-  --chart-5: oklch(0.7 0.06 240);
-  --sidebar: oklch(0.18 0.01 140);
-  --sidebar-foreground: oklch(0.92 0.005 140);
-  --sidebar-primary: oklch(0.65 0.1 155);
-  --sidebar-primary-foreground: oklch(0.15 0.01 140);
-  --sidebar-accent: oklch(0.22 0.01 140);
-  --sidebar-accent-foreground: oklch(0.92 0.005 140);
-  --sidebar-border: oklch(0.28 0.01 140);
-  --sidebar-ring: oklch(0.65 0.1 155);
-}
-
+   Identity: "warm-cream studio". A calm, unhurried surface — warm paper in
+   light, dim dusk in dark — with ONE grounding accent (studio sage). The soft
+   wellness pastels (lavender / rose / peach / powder) are demoted to a data
+   chart ramp only; they never dress the UI chrome. No gradient clip-text, no
+   purple→blue hero washes, no glassmorphism. The calm comes from space and
+   restraint, not decoration.
+--------------------------------------------------------------------------- */
 @theme inline {
-  --font-sans: "Geist", "Geist Fallback";
-  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -108,15 +39,22 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  /* Semantic status ramp (drives StatusBadge + inline states) */
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  /* Chart ramp — the soft wellness pastels live here and ONLY here */
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -125,6 +63,111 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Radius scale: 6 / 8 / 10 / 14, nested smaller than parents. */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+
+  /* Shadows tinted from the warm ink hue — never flat rgba(0,0,0). */
+  --shadow-xs: 0 1px 1px 0 hsl(var(--shadow-hsl) / 0.05);
+  --shadow-sm: 0 1px 2px 0 hsl(var(--shadow-hsl) / 0.08),
+    inset 0 1px 0 hsl(0 0% 100% / 0.03);
+  --shadow-md: 0 4px 16px -4px hsl(var(--shadow-hsl) / 0.12);
+  --shadow-lg: 0 16px 40px -8px hsl(var(--shadow-hsl) / 0.18);
+}
+
+/* Light — "warm-cream studio" --------------------------------------------- */
+:root {
+  --background: #faf7f2;   /* warm cream */
+  --foreground: #3d3a34;   /* warm ink */
+  --card: #ffffff;
+  --card-foreground: #3d3a34;
+  --popover: #ffffff;
+  --popover-foreground: #3d3a34;
+
+  --primary: #4e7a60;      /* studio sage — deepened so white text passes AA */
+  --primary-foreground: #ffffff;
+  --secondary: #efeae1;    /* quiet greige, not a pastel */
+  --secondary-foreground: #4a453e;
+  --muted: #f1ece4;
+  --muted-foreground: #736c61;
+  --accent: #ece6dc;       /* hover tint (a surface, not the brand) */
+  --accent-foreground: #4a453e;
+  --destructive: #c0503f;  /* warm brick, danger only */
+  --destructive-foreground: #ffffff;
+  --border: #e4ddd1;
+  --input: #e4ddd1;
+  --ring: #4e7a60;
+
+  --success: #4e7a60;      --success-foreground: #ffffff;
+  --warning: #b26a00;      --warning-foreground: #ffffff;
+  --info: #3f6f99;         --info-foreground: #ffffff;
+
+  /* Soft wellness pastels — charts & category legends only */
+  --chart-1: #6fa384;      /* sage */
+  --chart-2: #b79ad9;      /* lavender */
+  --chart-3: #e19aa8;      /* rose */
+  --chart-4: #e6b06a;      /* peach */
+  --chart-5: #7fb0d9;      /* powder blue */
+
+  --sidebar: #f3f0e9;
+  --sidebar-foreground: #3d3a34;
+  --sidebar-primary: #4e7a60;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e8e2d6;
+  --sidebar-accent-foreground: #3d3a34;
+  --sidebar-border: #e4ddd1;
+  --sidebar-ring: #4e7a60;
+
+  --radius: 10px;
+  --shadow-hsl: 36 20% 30%;
+}
+
+/* Dark — "studio at dusk" -------------------------------------------------- */
+.dark {
+  --background: #1a1815;   /* warm near-black */
+  --foreground: #ede7dd;
+  --card: #221f1b;
+  --card-foreground: #ede7dd;
+  --popover: #262320;
+  --popover-foreground: #ede7dd;
+
+  --primary: #7fb495;      /* lifted sage for dark surfaces */
+  --primary-foreground: #14201a;
+  --secondary: #2b2823;
+  --secondary-foreground: #ede7dd;
+  --muted: #2b2823;
+  --muted-foreground: #a79e90;
+  --accent: #302c27;
+  --accent-foreground: #ede7dd;
+  --destructive: #d3675c;
+  --destructive-foreground: #1a1815;
+  --border: #35312b;
+  --input: #35312b;
+  --ring: #7fb495;
+
+  --success: #7fb495;      --success-foreground: #14201a;
+  --warning: #e0a458;      --warning-foreground: #1a1815;
+  --info: #7fb0d9;         --info-foreground: #14201a;
+
+  --chart-1: #7fb495;
+  --chart-2: #c3aee6;
+  --chart-3: #e6a9b6;
+  --chart-4: #ecc07e;
+  --chart-5: #93c2e8;
+
+  --sidebar: #201d19;
+  --sidebar-foreground: #ede7dd;
+  --sidebar-primary: #7fb495;
+  --sidebar-primary-foreground: #14201a;
+  --sidebar-accent: #2b2823;
+  --sidebar-accent-foreground: #ede7dd;
+  --sidebar-border: #35312b;
+  --sidebar-ring: #7fb495;
+
+  --shadow-hsl: 36 12% 4%;
 }
 
 @layer base {
@@ -133,5 +176,35 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  /* Calm, unhurried headings — tightened tracking, never shouting. */
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Typographic discipline (borrowed from the house style) ------------------- */
+@layer utilities {
+  /* Every figure that updates in place — counts, prices, times, capacities. */
+  .num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+  /* Quiet section eyebrows. */
+  .label-caps {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+  }
+  /* A single calm "breath" — soft radial wash for hero surfaces. Replaces the
+     banned purple→blue gradient. One hue (sage), barely there. */
+  .surface-breath {
+    background:
+      radial-gradient(120% 90% at 50% -10%, color-mix(in oklab, var(--primary) 9%, transparent), transparent 70%),
+      var(--background);
   }
 }

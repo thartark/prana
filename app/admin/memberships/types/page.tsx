@@ -7,6 +7,11 @@ import { Badge } from "@/components/ui/badge"
 
 export default async function MembershipTypesPage() {
   const supabase = await createClient()
+  if (!supabase) return (
+    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
+      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
+    </div>
+  )
 
   const { data: membershipTypes } = await supabase.from("membership_types").select("*").order("price_cents")
 

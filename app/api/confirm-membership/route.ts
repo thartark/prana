@@ -1,18 +1,21 @@
 import { createClient } from "@/lib/supabase/server"
+import { getStripe } from "@/lib/stripe"
 import { NextResponse } from "next/server"
-import Stripe from "stripe"
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-12-18.acacia",
-})
 
 export async function POST(request: Request) {
   try {
     const { paymentIntentId, userId, membershipTypeId } = await request.json()
 
     const supabase = await createClient()
+    const stripe = getStripe()
 
-    // Verify user is authenticated
+    if (!supabase || !stripe) {
+      return NextResponse.json(
+        { error: "Payments are not configured on this deployment (mock mode)." },
+        { status: 503 },
+      )
+    }
+
     const {
       data: { user },
     } = await supabase.auth.getUser()
@@ -21,14 +24,31 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    // Verify payment intent
+    // Verify the payment actually succeeded and its metadata matches.
     const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId)
 
     if (paymentIntent.status !== "succeeded") {
       return NextResponse.json({ error: "Payment not completed" }, { status: 400 })
     }
 
-    // Get membership type details
+    if (
+      paymentIntent.metadata?.userId !== userId ||
+      paymentIntent.metadata?.membershipTypeId !== membershipTypeId
+    ) {
+      return NextResponse.json({ error: "Payment metadata mismatch" }, { status: 400 })
+    }
+
+    // Idempotency: never double-grant a membership for the same intent.
+    const { data: existing } = await supabase
+      .from("memberships")
+      .select("id")
+      .eq("stripe_payment_intent_id", paymentIntentId)
+      .maybeSingle()
+
+    if (existing) {
+      return NextResponse.json({ success: true, membership: existing, idempotent: true })
+    }
+
     const { data: membershipType, error: membershipError } = await supabase
       .from("membership_types")
       .select("*")
@@ -39,12 +59,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Membership type not found" }, { status: 404 })
     }
 
-    // Calculate dates
     const startDate = new Date()
     const endDate = new Date()
     endDate.setDate(startDate.getDate() + membershipType.validity_days)
 
-    // Create membership
     const { data: membership, error: insertError } = await supabase
       .from("memberships")
       .insert({
@@ -60,13 +78,23 @@ export async function POST(request: Request) {
       .single()
 
     if (insertError) {
-      console.error("[v0] Error creating membership:", insertError)
+      console.error("[prana] Error creating membership:", insertError)
       return NextResponse.json({ error: insertError.message }, { status: 500 })
     }
 
+    // Record revenue so /admin/finances/revenue is a single query.
+    await supabase.from("revenue_records").insert({
+      user_id: userId,
+      category: "membership",
+      amount_cents: membershipType.price_cents,
+      description: `Membership: ${membershipType.name}`,
+      stripe_payment_intent_id: paymentIntentId,
+    })
+
     return NextResponse.json({ success: true, membership })
-  } catch (error: any) {
-    console.error("[v0] Error confirming membership:", error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unexpected error"
+    console.error("[prana] Error confirming membership:", message)
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }

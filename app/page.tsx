@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import Link from "next/link"
+import { studioConfig } from "@/lib/studio-config"
 import {
   Calendar,
   Users,
@@ -22,21 +23,19 @@ export default function HomePage() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-secondary/20 via-background to-accent/10 px-4 py-24 sm:py-32">
+      <section className="surface-breath relative overflow-hidden border-b px-4 py-24 sm:py-32">
         <div className="container mx-auto text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm text-primary mb-6">
             <MapPin className="h-4 w-4" />
-            Fayetteville, Arkansas
+            {studioConfig.city}
           </div>
 
-          <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl text-balance mb-6">
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Trailside Yoga & Beyond
-            </span>
+          <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl text-balance mb-6 text-foreground">
+            {studioConfig.name}
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-xl text-muted-foreground text-pretty leading-relaxed">
-            Find your balance in the heart of Northwest Arkansas. Join our welcoming community for yoga classes, 
+            Find your balance in the heart of Northwest Arkansas. Join our welcoming community for yoga classes,
             workshops, private sessions, and holistic wellness experiences.
           </p>
 
