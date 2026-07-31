@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@hayarta/ui':
+        specifier: ^0.1.0
+        version: 0.1.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@hookform/resolvers':
         specifier: ^3.10.0
         version: 3.10.0(react-hook-form@7.83.0(react@19.2.0))
@@ -225,6 +228,12 @@ packages:
 
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
+
+  '@hayarta/ui@0.1.0':
+    resolution: {integrity: sha512-zKwCuQ3vNxpiSC0OBEA4ITRXqeMPgJ7ZphOlHVj27PTsRyyKsTZz4ikXHgPrx4Z9QFvZI3Sj8h2LekFDbes1jA==}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
 
   '@hookform/resolvers@3.10.0':
     resolution: {integrity: sha512-79Dv+3mDF7i+2ajj7SkypSKHhl1cbln1OGavqrsF7p6mbUv11xpqpacPsGDCTRvCSjEEIez2ef1NveSVL3b0Ag==}
@@ -1593,6 +1602,11 @@ packages:
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
 
+  lucide-react@0.469.0:
+    resolution: {integrity: sha512-28vvUnnKQ/dBwiCQtwJw7QauYnE7yd2Cyp4tTTJpvglX4EMpbflcdBgrgToX2j71B3YvugK/NH3BGUk+E/p/Fw==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
 
@@ -1890,6 +1904,15 @@ snapshots:
       react-dom: 19.2.0(react@19.2.0)
 
   '@floating-ui/utils@0.2.12': {}
+
+  '@hayarta/ui@0.1.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+    dependencies:
+      class-variance-authority: 0.7.1
+      clsx: 2.1.1
+      lucide-react: 0.469.0(react@19.2.0)
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+      tailwind-merge: 2.6.1
 
   '@hookform/resolvers@3.10.0(react-hook-form@7.83.0(react@19.2.0))':
     dependencies:
@@ -3106,6 +3129,10 @@ snapshots:
       js-tokens: 4.0.0
 
   lucide-react@0.454.0(react@19.2.0):
+    dependencies:
+      react: 19.2.0
+
+  lucide-react@0.469.0(react@19.2.0):
     dependencies:
       react: 19.2.0
 
