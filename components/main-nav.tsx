@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { AppSwitcher } from "@/components/app-switcher"
 import { createBrowserClient } from "@/lib/supabase/client"
 import { getMockDataManager } from "@/lib/mock-data"
 import { useRouter } from "next/navigation"
@@ -107,6 +108,7 @@ export function MainNav() {
         </nav>
 
         <div className="flex items-center gap-2 shrink-0">
+          <AppSwitcher />
           {user ? (
             <>
               {isAdmin && (
