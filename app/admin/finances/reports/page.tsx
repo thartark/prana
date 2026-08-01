@@ -3,18 +3,32 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
 
+const MOCK_MEMBERSHIPS = [
+  { price: 149, created_at: "2026-07-28" },
+  { price: 149, created_at: "2026-07-25" },
+  { price: 89, created_at: "2026-07-22" },
+  { price: 1490, created_at: "2026-07-15" },
+  { price: 89, created_at: "2026-07-11" },
+  { price: 149, created_at: "2026-07-03" },
+]
+const MOCK_EXPENSES = [
+  { amount: 3200, category: "rent", expense_date: "2026-07-01" },
+  { amount: 640, category: "utilities", expense_date: "2026-07-05" },
+  { amount: 1850, category: "instructor pay", expense_date: "2026-07-15" },
+  { amount: 420, category: "supplies", expense_date: "2026-07-09" },
+  { amount: 210, category: "marketing", expense_date: "2026-07-12" },
+  { amount: 95, category: "software", expense_date: "2026-07-02" },
+]
+
 export default async function ReportsPage() {
   const supabase = await createServerClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  // Get financial data
-  const { data: memberships } = await supabase.from("memberships").select("price, created_at")
-
-  const { data: expenses } = await supabase.from("expenses").select("amount, category, expense_date")
+  let memberships: any[] = MOCK_MEMBERSHIPS
+  let expenses: any[] = MOCK_EXPENSES
+  if (supabase) {
+    memberships = (await supabase.from("memberships").select("price, created_at")).data || []
+    expenses = (await supabase.from("expenses").select("amount, category, expense_date")).data || []
+  }
 
   const totalRevenue = memberships?.reduce((sum, m) => sum + Number(m.price), 0) || 0
   const totalExpenses = expenses?.reduce((sum, e) => sum + Number(e.amount), 0) || 0

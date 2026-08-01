@@ -5,15 +5,22 @@ import { Plus } from "lucide-react"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 
+const MOCK_TYPES = [
+  { id: "t1", name: "Drop-In", description: "Single class, no commitment.", type: "class_pack", price_cents: 2200, class_count: 1, validity_days: 30, is_active: true },
+  { id: "t2", name: "10-Class Pack", description: "Ten classes to use at your pace.", type: "class_pack", price_cents: 8900, class_count: 10, validity_days: 120, is_active: true },
+  { id: "t3", name: "Unlimited Monthly", description: "Unlimited classes, billed monthly.", type: "recurring", price_cents: 14900, class_count: null, validity_days: 30, is_active: true },
+  { id: "t4", name: "Annual Unlimited", description: "Unlimited classes for a full year — best value.", type: "recurring", price_cents: 149000, class_count: null, validity_days: 365, is_active: true },
+  { id: "t5", name: "Student Monthly", description: "Discounted unlimited for students with valid ID.", type: "recurring", price_cents: 9900, class_count: null, validity_days: 30, is_active: true },
+  { id: "t6", name: "New Member Intro", description: "Two weeks unlimited for first-timers.", type: "intro", price_cents: 3900, class_count: null, validity_days: 14, is_active: false },
+]
+
 export default async function MembershipTypesPage() {
   const supabase = await createClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  const { data: membershipTypes } = await supabase.from("membership_types").select("*").order("price_cents")
+  let membershipTypes: any[] = MOCK_TYPES
+  if (supabase) {
+    membershipTypes = (await supabase.from("membership_types").select("*").order("price_cents")).data || []
+  }
 
   return (
     <div className="flex flex-col gap-6">

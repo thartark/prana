@@ -3,18 +3,25 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
+const MOCK_REQUESTS = [
+  { id: "r1", status: "pending", start_date: "2026-08-12", end_date: "2026-08-16", reason: "Family wedding out of state.", instructor: { full_name: "Sarah Johnson", email: "sarah@email.com" } },
+  { id: "r2", status: "pending", start_date: "2026-08-20", end_date: "2026-08-21", reason: "Continuing-education workshop.", instructor: { full_name: "Michael Chen", email: "michael@email.com" } },
+  { id: "r3", status: "approved", start_date: "2026-09-01", end_date: "2026-09-07", reason: "Vacation.", instructor: { full_name: "Emma Rodriguez", email: "emma@email.com" } },
+  { id: "r4", status: "approved", start_date: "2026-07-04", end_date: "2026-07-04", reason: "Holiday.", instructor: { full_name: "David Kim", email: "david@email.com" } },
+  { id: "r5", status: "denied", start_date: "2026-08-02", end_date: "2026-08-09", reason: "Overlaps with the summer retreat week.", instructor: { full_name: "Lisa Martinez", email: "lisa@email.com" } },
+]
+
 export default async function TimeOffPage() {
   const supabase = await createServerClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  const { data: requests } = await supabase
-    .from("time_off_requests")
-    .select("*, instructor:profiles(full_name, email)")
-    .order("created_at", { ascending: false })
+  let requests: any[] = MOCK_REQUESTS
+  if (supabase) {
+    requests =
+      (await supabase
+        .from("time_off_requests")
+        .select("*, instructor:profiles(full_name, email)")
+        .order("created_at", { ascending: false })).data || []
+  }
 
   const pending = requests?.filter((r) => r.status === "pending") || []
   const approved = requests?.filter((r) => r.status === "approved") || []

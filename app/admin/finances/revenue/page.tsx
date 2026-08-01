@@ -2,26 +2,48 @@ import { createServerClient } from "@/lib/supabase/server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+const MOCK_MEMBERSHIPS = [
+  { id: "m1", price: 149, created_at: "2026-07-28", membership_type: { name: "Unlimited Monthly" } },
+  { id: "m2", price: 149, created_at: "2026-07-25", membership_type: { name: "Unlimited Monthly" } },
+  { id: "m3", price: 89, created_at: "2026-07-22", membership_type: { name: "10-Class Pack" } },
+  { id: "m4", price: 1490, created_at: "2026-07-15", membership_type: { name: "Annual Unlimited" } },
+  { id: "m5", price: 89, created_at: "2026-07-11", membership_type: { name: "10-Class Pack" } },
+  { id: "m6", price: 149, created_at: "2026-07-03", membership_type: { name: "Unlimited Monthly" } },
+]
+const MOCK_WORKSHOPS = [
+  { id: "w1", amount_paid: 65, created_at: "2026-07-26", workshop: { title: "Yin & Meditation Immersion" } },
+  { id: "w2", amount_paid: 65, created_at: "2026-07-26", workshop: { title: "Yin & Meditation Immersion" } },
+  { id: "w3", amount_paid: 120, created_at: "2026-07-19", workshop: { title: "Inversions Masterclass" } },
+  { id: "w4", amount_paid: 45, created_at: "2026-07-12", workshop: { title: "Breathwork Basics" } },
+]
+const MOCK_ORDERS = [
+  { id: "o1a2b3c4d5", total_amount: 58, created_at: "2026-07-29" },
+  { id: "o2b3c4d5e6", total_amount: 32, created_at: "2026-07-24" },
+  { id: "o3c4d5e6f7", total_amount: 124, created_at: "2026-07-18" },
+]
+const MOCK_PRIVATE = [
+  { id: "p1", amount_paid: 95, created_at: "2026-07-27" },
+  { id: "p2", amount_paid: 95, created_at: "2026-07-20" },
+]
+
 export default async function RevenuePage() {
   const supabase = await createServerClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  // Get revenue by category
-  const { data: memberships } = await supabase
-    .from("memberships")
-    .select("price, created_at, membership_type:membership_types(name)")
-
-  const { data: workshops } = await supabase
-    .from("workshop_registrations")
-    .select("amount_paid, created_at, workshop:workshops(title)")
-
-  const { data: orders } = await supabase.from("orders").select("total_amount, created_at").eq("status", "completed")
-
-  const { data: privateSessions } = await supabase.from("private_session_bookings").select("amount_paid, created_at")
+  let memberships: any[] = MOCK_MEMBERSHIPS
+  let workshops: any[] = MOCK_WORKSHOPS
+  let orders: any[] = MOCK_ORDERS
+  let privateSessions: any[] = MOCK_PRIVATE
+  if (supabase) {
+    memberships =
+      (await supabase.from("memberships").select("price, created_at, membership_type:membership_types(name)")).data || []
+    workshops =
+      (await supabase.from("workshop_registrations").select("amount_paid, created_at, workshop:workshops(title)")).data ||
+      []
+    orders =
+      (await supabase.from("orders").select("total_amount, created_at").eq("status", "completed")).data || []
+    privateSessions =
+      (await supabase.from("private_session_bookings").select("amount_paid, created_at")).data || []
+  }
 
   const membershipRevenue = memberships?.reduce((sum, m) => sum + Number(m.price), 0) || 0
   const workshopRevenue = workshops?.reduce((sum, w) => sum + Number(w.amount_paid), 0) || 0

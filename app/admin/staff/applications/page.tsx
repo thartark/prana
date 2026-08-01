@@ -3,18 +3,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
+const MOCK_APPLICATIONS = [
+  { id: "a1", first_name: "Priya", last_name: "Nair", status: "pending", email: "priya.nair@email.com", phone: "(479) 555-0181", years_experience: 6, certifications: "RYT-500, Yin Yoga", teaching_styles: "Yin, Hatha, Restorative", cover_letter: "I've been teaching in Bentonville for six years and would love to bring a slower, breath-led practice to Trailside." },
+  { id: "a2", first_name: "Marcus", last_name: "Bell", status: "pending", email: "marcus.bell@email.com", phone: "(479) 555-0164", years_experience: 3, certifications: "RYT-200", teaching_styles: "Power, Vinyasa", cover_letter: "Former collegiate athlete turned yoga teacher — I focus on strong, accessible flows." },
+  { id: "a3", first_name: "Dana", last_name: "Whitfield", status: "accepted", email: "dana.w@email.com", phone: "(479) 555-0139", years_experience: 9, certifications: "E-RYT 500, Prenatal", teaching_styles: "Prenatal, Gentle", cover_letter: "" },
+  { id: "a4", first_name: "Tomás", last_name: "Reyes", status: "rejected", email: "tomas.reyes@email.com", phone: "(479) 555-0122", years_experience: 1, certifications: "RYT-200 (in progress)", teaching_styles: "Vinyasa", cover_letter: "" },
+]
+
 export default async function ApplicationsPage() {
   const supabase = await createServerClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  const { data: applications } = await supabase
-    .from("instructor_applications")
-    .select("*")
-    .order("created_at", { ascending: false })
+  let applications: any[] = MOCK_APPLICATIONS
+  if (supabase) {
+    applications =
+      (await supabase.from("instructor_applications").select("*").order("created_at", { ascending: false })).data || []
+  }
 
   return (
     <div className="space-y-6">

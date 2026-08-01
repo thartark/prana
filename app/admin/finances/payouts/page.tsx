@@ -4,25 +4,37 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Plus } from "lucide-react"
 
+const MOCK_COMMISSIONS = [
+  { id: "c1", amount: 210, status: "pending", source_type: "class", class_date: "2026-07-30", students_count: 14, instructor: { full_name: "Sarah Johnson" } },
+  { id: "c2", amount: 135, status: "pending", source_type: "class", class_date: "2026-07-29", students_count: 9, instructor: { full_name: "Michael Chen" } },
+  { id: "c3", amount: 320, status: "pending", source_type: "workshop", class_date: "2026-07-26", students_count: 16, instructor: { full_name: "Emma Rodriguez" } },
+  { id: "c4", amount: 90, status: "pending", source_type: "private", class_date: "2026-07-27", students_count: 1, instructor: { full_name: "Lisa Martinez" } },
+]
+const MOCK_PAYOUTS = [
+  { id: "po1", total_amount: 1240, status: "completed", period_start: "2026-07-01", period_end: "2026-07-15", payment_method: "direct deposit", instructor: { full_name: "Sarah Johnson" } },
+  { id: "po2", total_amount: 980, status: "completed", period_start: "2026-07-01", period_end: "2026-07-15", payment_method: "direct deposit", instructor: { full_name: "Michael Chen" } },
+  { id: "po3", total_amount: 615, status: "processing", period_start: "2026-07-16", period_end: "2026-07-31", payment_method: "check", instructor: { full_name: "David Kim" } },
+]
+
 export default async function PayoutsPage() {
   const supabase = await createServerClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  const { data: commissions } = await supabase
-    .from("instructor_commissions")
-    .select("*, instructor:profiles(full_name)")
-    .eq("status", "pending")
-    .order("created_at", { ascending: false })
-
-  const { data: payouts } = await supabase
-    .from("instructor_payouts")
-    .select("*, instructor:profiles(full_name)")
-    .order("created_at", { ascending: false })
-    .limit(20)
+  let commissions: any[] = MOCK_COMMISSIONS
+  let payouts: any[] = MOCK_PAYOUTS
+  if (supabase) {
+    commissions =
+      (await supabase
+        .from("instructor_commissions")
+        .select("*, instructor:profiles(full_name)")
+        .eq("status", "pending")
+        .order("created_at", { ascending: false })).data || []
+    payouts =
+      (await supabase
+        .from("instructor_payouts")
+        .select("*, instructor:profiles(full_name)")
+        .order("created_at", { ascending: false })
+        .limit(20)).data || []
+  }
 
   const pendingTotal = commissions?.reduce((sum, c) => sum + Number(c.amount), 0) || 0
 
