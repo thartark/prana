@@ -1,15 +1,47 @@
 import { createClient } from "@/lib/supabase/server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
+const MOCK_TEMPLATES = [
+  {
+    id: "tmpl-1",
+    name: "booking_confirmation",
+    subject: "You're booked for {{class_name}} 🧘",
+    variables: ["client_name", "class_name", "class_time", "instructor_name"],
+  },
+  {
+    id: "tmpl-2",
+    name: "class_reminder",
+    subject: "Reminder: {{class_name}} starts in 2 hours",
+    variables: ["client_name", "class_name", "class_time", "location"],
+  },
+  {
+    id: "tmpl-3",
+    name: "waitlist_promotion",
+    subject: "A spot opened up in {{class_name}}!",
+    variables: ["client_name", "class_name", "class_time", "hold_expires"],
+  },
+  {
+    id: "tmpl-4",
+    name: "membership_expiring",
+    subject: "Your membership expires in {{days_left}} days",
+    variables: ["client_name", "membership_type", "expiry_date"],
+  },
+  {
+    id: "tmpl-5",
+    name: "payment_failed",
+    subject: "We couldn't process your payment",
+    variables: ["client_name", "amount", "retry_link"],
+  },
+]
+
 export default async function AdminNotificationsPage() {
   const supabase = await createClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  const { data: templates } = await supabase.from("email_templates").select("*").order("name")
+  let templates: any[] = MOCK_TEMPLATES
+  if (supabase) {
+    const { data } = await supabase.from("email_templates").select("*").order("name")
+    templates = data || []
+  }
 
   return (
     <div className="flex flex-col gap-6">

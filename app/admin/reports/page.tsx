@@ -1,33 +1,47 @@
 import { createClient } from "@/lib/supabase/server"
+import { getMockData } from "@/lib/mock-data"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export default async function ReportsPage() {
   const supabase = await createClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  // Get attendance stats for the last 30 days
-  const thirtyDaysAgo = new Date()
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
-
-  const { data: attendanceData } = await supabase
-    .from("bookings")
-    .select(
-      `
-      id,
-      status,
-      class_instances!bookings_class_instance_id_fkey(
-        scheduled_date,
-        classes!class_instances_class_id_fkey(name)
+  // Source attendance data from Supabase when configured, otherwise the mock repo.
+  let attendanceData: any[] = []
+  if (supabase) {
+    const thirtyDaysAgo = new Date()
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+    const { data } = await supabase
+      .from("bookings")
+      .select(
+        `
+        id,
+        status,
+        class_instances!bookings_class_instance_id_fkey(
+          scheduled_date,
+          classes!class_instances_class_id_fkey(name)
+        )
+      `,
       )
-    `,
-    )
-    .gte("class_instances.scheduled_date", thirtyDaysAgo.toISOString().split("T")[0])
-    .lte("class_instances.scheduled_date", new Date().toISOString().split("T")[0])
+      .gte("class_instances.scheduled_date", thirtyDaysAgo.toISOString().split("T")[0])
+      .lte("class_instances.scheduled_date", new Date().toISOString().split("T")[0])
+    attendanceData = data || []
+  } else {
+    const mock = getMockData()
+    // The seed's classes are all upcoming, so raw booking status is "confirmed".
+    // Derive a realistic attended/no-show/cancelled mix (deterministic by index)
+    // so the report reads like a studio with history.
+    attendanceData = (mock.bookings || []).map((b: any, i: number) => {
+      const inst = mock.classInstances?.find((ci: any) => ci.id === b.class_instance_id)
+      const r = i % 20
+      const status = r < 12 ? "attended" : r < 16 ? "confirmed" : r < 18 ? "cancelled" : "no-show"
+      return {
+        id: b.id,
+        status,
+        class_instances: { scheduled_date: inst?.date, classes: { name: inst?.class_name } },
+      }
+    })
+  }
 
   // Calculate stats
   const totalBookings = attendanceData?.length || 0
