@@ -1,20 +1,21 @@
 import { createClient } from "@/lib/supabase/server"
+import { getMockData } from "@/lib/mock-data"
 import { notFound } from "next/navigation"
 import { CreateScheduleForm } from "@/components/create-schedule-form"
 
 export default async function NewSchedulePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const supabase = await createClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  const { data: classData } = await supabase.from("classes").select("*").eq("id", id).single()
-
-  if (!classData) {
-    notFound()
+  let classData: any = null
+  if (supabase) {
+    classData = (await supabase.from("classes").select("*").eq("id", id).single()).data
+    if (!classData) {
+      notFound()
+    }
+  } else {
+    const found = getMockData().classes?.find((c: any) => c.id === id)
+    classData = { name: found?.name || "Class" }
   }
 
   return (

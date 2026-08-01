@@ -4,15 +4,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 
+const MOCK_CODES = [
+  { id: "dc1", code: "NEWMEMBER", description: "20% off a new member's first month", is_active: true, discount_type: "percentage", discount_value: 20, uses_count: 47, max_uses: null, valid_until: null },
+  { id: "dc2", code: "SUMMER25", description: "$25 off any class pack", is_active: true, discount_type: "fixed", discount_value: 25, uses_count: 63, max_uses: 200, valid_until: "2026-08-31" },
+  { id: "dc3", code: "FRIENDREFER", description: "15% off when referred by a member", is_active: true, discount_type: "percentage", discount_value: 15, uses_count: 21, max_uses: null, valid_until: null },
+  { id: "dc4", code: "GRANDOPEN", description: "Grand opening — 50% off first drop-in", is_active: false, discount_type: "percentage", discount_value: 50, uses_count: 180, max_uses: 180, valid_until: "2026-02-01" },
+]
+
 export default async function DiscountCodesPage() {
   const supabase = await createServerClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  const { data: codes } = await supabase.from("discount_codes").select("*").order("created_at", { ascending: false })
+  let codes: any[] = MOCK_CODES
+  if (supabase) {
+    codes = (await supabase.from("discount_codes").select("*").order("created_at", { ascending: false })).data || []
+  }
 
   return (
     <div className="space-y-6">

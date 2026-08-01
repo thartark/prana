@@ -10,11 +10,8 @@ export default function NewLocationPage() {
   async function createLocation(formData: FormData) {
     "use server"
     const supabase = await createServerClient()
-    if (!supabase) return (
-      <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-        This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-      </div>
-    )
+    // Demo mode: nothing to persist to — just return to the list.
+    if (!supabase) redirect("/admin/locations")
 
     const locationData = {
       name: formData.get("name") as string,

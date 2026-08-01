@@ -1,22 +1,31 @@
 import { createServerClient } from "@/lib/supabase/server"
+import { getMockData } from "@/lib/mock-data"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
+const MOCK_PAYROLL = [
+  { id: "pr1", pay_period_start: "2026-07-16", pay_period_end: "2026-07-31", total_classes: 22, total_private_sessions: 4, status: "approved", base_pay: 1320, bonus_pay: 160, total_pay: 1480 },
+  { id: "pr2", pay_period_start: "2026-07-01", pay_period_end: "2026-07-15", total_classes: 19, total_private_sessions: 3, status: "paid", base_pay: 1140, bonus_pay: 120, total_pay: 1260 },
+  { id: "pr3", pay_period_start: "2026-06-16", pay_period_end: "2026-06-30", total_classes: 24, total_private_sessions: 2, status: "paid", base_pay: 1440, bonus_pay: 80, total_pay: 1520 },
+]
+
 export default async function InstructorPayrollPage({ params }: { params: { id: string } }) {
   const supabase = await createServerClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  const { data: instructor } = await supabase.from("profiles").select("*").eq("id", params.id).single()
-
-  const { data: payrollRecords } = await supabase
-    .from("instructor_payroll")
-    .select("*")
-    .eq("instructor_id", params.id)
-    .order("pay_period_start", { ascending: false })
+  let instructor: any = null
+  let payrollRecords: any[] = MOCK_PAYROLL
+  if (supabase) {
+    instructor = (await supabase.from("profiles").select("*").eq("id", params.id).single()).data
+    payrollRecords =
+      (await supabase
+        .from("instructor_payroll")
+        .select("*")
+        .eq("instructor_id", params.id)
+        .order("pay_period_start", { ascending: false })).data || []
+  } else {
+    const found = getMockData().instructors?.find((i: any) => i.id === params.id)
+    instructor = { full_name: found?.name || "Instructor" }
+  }
 
   return (
     <div className="space-y-6">

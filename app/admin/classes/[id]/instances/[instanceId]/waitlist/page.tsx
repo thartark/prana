@@ -1,10 +1,17 @@
 import { createClient } from "@/lib/supabase/server"
+import { getMockData } from "@/lib/mock-data"
 import { notFound } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { PromoteFromWaitlistButton } from "@/components/promote-from-waitlist-button"
+
+const MOCK_WAITLIST = [
+  { id: "wl1", position: 1, joined_at: "2026-07-28", status: "waiting", profiles: { id: "u1", full_name: "Jennifer Adams", email: "jennifer@email.com" } },
+  { id: "wl2", position: 2, joined_at: "2026-07-29", status: "waiting", profiles: { id: "u2", full_name: "Marcus Lee", email: "marcus@email.com" } },
+  { id: "wl3", position: 3, joined_at: "2026-07-30", status: "waiting", profiles: { id: "u3", full_name: "Priya Patel", email: "priya@email.com" } },
+]
 
 export default async function WaitlistManagementPage({
   params,
@@ -13,46 +20,62 @@ export default async function WaitlistManagementPage({
 }) {
   const { id, instanceId } = await params
   const supabase = await createClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  const { data: instance } = await supabase
-    .from("class_instances")
-    .select(
-      `
-      id,
-      scheduled_date,
-      start_time,
-      end_time,
+  let instance: any = null
+  let waitlistEntries: any[] = MOCK_WAITLIST
+  if (supabase) {
+    instance = (
+      await supabase
+        .from("class_instances")
+        .select(
+          `
+          id,
+          scheduled_date,
+          start_time,
+          end_time,
+          capacity,
+          classes!class_instances_class_id_fkey(name),
+          bookings(id)
+        `,
+        )
+        .eq("id", instanceId)
+        .single()
+    ).data
+
+    if (!instance) {
+      notFound()
+    }
+
+    waitlistEntries =
+      (await supabase
+        .from("waitlist")
+        .select(
+          `
+          id,
+          position,
+          joined_at,
+          status,
+          profiles!waitlist_user_id_fkey(full_name, email)
+        `,
+        )
+        .eq("class_instance_id", instanceId)
+        .eq("status", "waiting")
+        .order("position")).data || []
+  } else {
+    const mock = getMockData()
+    const inst = mock.classInstances?.find((ci: any) => ci.id === instanceId)
+    const capacity = inst?.capacity ?? 20
+    const booked = capacity - 1 // one spot open, so the Promote-from-waitlist action is visible
+    instance = {
+      id: instanceId,
+      scheduled_date: inst?.date || "2026-08-05",
+      start_time: inst?.start_time || "6:00 PM",
+      end_time: inst?.end_time || "7:00 PM",
       capacity,
-      classes!class_instances_class_id_fkey(name),
-      bookings(id)
-    `,
-    )
-    .eq("id", instanceId)
-    .single()
-
-  if (!instance) {
-    notFound()
+      classes: { name: inst?.class_name || mock.classes?.find((c: any) => c.id === id)?.name || "Class" },
+      bookings: Array.from({ length: booked }, (_, i) => ({ id: `b${i}` })),
+    }
   }
-
-  const { data: waitlistEntries } = await supabase
-    .from("waitlist")
-    .select(
-      `
-      id,
-      position,
-      joined_at,
-      status,
-      profiles!waitlist_user_id_fkey(full_name, email)
-    `,
-    )
-    .eq("class_instance_id", instanceId)
-    .eq("status", "waiting")
-    .order("position")
 
   const bookedCount = instance.bookings?.length || 0
   const spotsLeft = instance.capacity - bookedCount

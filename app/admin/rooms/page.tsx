@@ -4,15 +4,20 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
+const MOCK_ROOMS = [
+  { id: "rm1", name: "Main Studio", is_available: true, capacity: 30, amenities: ["heated_floors", "sound_system", "props_wall", "natural_light"], hourly_rate: 60 },
+  { id: "rm2", name: "Loft Studio", is_available: true, capacity: 18, amenities: ["sound_system", "mirrors", "natural_light"], hourly_rate: 45 },
+  { id: "rm3", name: "Meditation Room", is_available: true, capacity: 12, amenities: ["dim_lighting", "cushions", "sound_system"], hourly_rate: 30 },
+  { id: "rm4", name: "Reformer Room", is_available: false, capacity: 8, amenities: ["reformers", "mirrors"], hourly_rate: null },
+]
+
 export default async function RoomsPage() {
   const supabase = await createServerClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  const { data: rooms } = await supabase.from("studio_rooms").select("*").order("name")
+  let rooms: any[] = MOCK_ROOMS
+  if (supabase) {
+    rooms = (await supabase.from("studio_rooms").select("*").order("name")).data || []
+  }
 
   return (
     <div className="space-y-6">

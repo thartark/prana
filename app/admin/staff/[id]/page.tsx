@@ -1,4 +1,5 @@
 import { createServerClient } from "@/lib/supabase/server"
+import { getMockData } from "@/lib/mock-data"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -6,29 +7,63 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
+function buildMockStaff(id: string) {
+  const found = getMockData().instructors?.find((i: any) => i.id === id)
+  const fullName = found?.name || "Sarah Johnson"
+  const email = found?.email || `${fullName.toLowerCase().replace(/\s+/g, ".")}@trailsideyoga.com`
+  return {
+    full_name: fullName,
+    email,
+    role: "instructor",
+    teaching_style: "Vinyasa & Hatha",
+    years_experience: 8,
+    hourly_rate: 62,
+    bio: found?.bio || "Dedicated to making yoga accessible and grounding for every body that walks through the door.",
+    instructor_tier: { name: "Senior", level: 3, base_rate: 62 },
+    certifications: [
+      { id: "cert1", name: "RYT-500", issuing_organization: "Yoga Alliance", issue_date: "2019-03-01", expiration_date: "2027-03-01", continuing_education_hours: 40, status: "active" },
+      { id: "cert2", name: "Prenatal Yoga Certification", issuing_organization: "Prenatal Yoga Center", issue_date: "2021-06-15", expiration_date: null, continuing_education_hours: 30, status: "active" },
+      { id: "cert3", name: "CPR / First Aid", issuing_organization: "American Red Cross", issue_date: "2024-01-10", expiration_date: "2026-01-10", continuing_education_hours: 0, status: "expired" },
+    ],
+    instructor_specialties: [
+      { id: "sp1", specialty: "Vinyasa", proficiency_level: "expert" },
+      { id: "sp2", specialty: "Restorative", proficiency_level: "advanced" },
+      { id: "sp3", specialty: "Prenatal", proficiency_level: "advanced" },
+    ],
+    time_off_requests: [],
+    performance_reviews: [
+      { id: "rev1", review_date: "2026-06-30", overall_rating: 5, teaching_quality: 5, professionalism: 5, punctuality: 4, strengths: "Exceptional at reading the room and tailoring pace; students consistently request her classes." },
+      { id: "rev2", review_date: "2025-12-31", overall_rating: 4, teaching_quality: 5, professionalism: 4, punctuality: 4, strengths: "Strong sequencing and clear cueing." },
+    ],
+    staff_hours: [{ hours_worked: 92.5 }],
+    emergency_contact_name: "Jordan Johnson",
+    emergency_contact_phone: "(479) 555-0170",
+    emergency_contact_relationship: "Spouse",
+  }
+}
+
 export default async function StaffDetailPage({ params }: { params: { id: string } }) {
   const supabase = await createServerClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  const { data: staff } = await supabase
-    .from("profiles")
-    .select(`
-      *,
-      instructor_tier:instructor_tiers(*),
-      certifications(*),
-      instructor_specialties(*),
-      time_off_requests(*),
-      performance_reviews(*),
-      staff_hours(*)
-    `)
-    .eq("id", params.id)
-    .single()
-
-  if (!staff) notFound()
+  let staff: any = buildMockStaff(params.id)
+  if (supabase) {
+    staff = (
+      await supabase
+        .from("profiles")
+        .select(`
+          *,
+          instructor_tier:instructor_tiers(*),
+          certifications(*),
+          instructor_specialties(*),
+          time_off_requests(*),
+          performance_reviews(*),
+          staff_hours(*)
+        `)
+        .eq("id", params.id)
+        .single()
+    ).data
+    if (!staff) notFound()
+  }
 
   const totalHours = staff.staff_hours?.reduce((sum: number, h: any) => sum + (h.hours_worked || 0), 0) || 0
   const avgRating = staff.performance_reviews?.length

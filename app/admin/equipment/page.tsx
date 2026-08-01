@@ -4,15 +4,25 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
+const MOCK_EQUIPMENT = [
+  { id: "eq1", name: "Yoga Mats", category: "mats", quantity: 40, condition: "good", last_maintenance_date: "2026-06-15" },
+  { id: "eq2", name: "Premium Grip Mats", category: "mats", quantity: 12, condition: "excellent", last_maintenance_date: "2026-07-10" },
+  { id: "eq3", name: "Cork Blocks", category: "props", quantity: 60, condition: "good", last_maintenance_date: null },
+  { id: "eq4", name: "Yoga Straps", category: "props", quantity: 35, condition: "fair", last_maintenance_date: "2026-05-01" },
+  { id: "eq5", name: "Bolsters", category: "props", quantity: 24, condition: "good", last_maintenance_date: null },
+  { id: "eq6", name: "Pilates Reformers", category: "machines", quantity: 8, condition: "excellent", last_maintenance_date: "2026-07-20" },
+  { id: "eq7", name: "Meditation Cushions", category: "props", quantity: 20, condition: "excellent", last_maintenance_date: null },
+  { id: "eq8", name: "Bluetooth Speakers", category: "audio", quantity: 4, condition: "good", last_maintenance_date: "2026-06-28" },
+  { id: "eq9", name: "Space Heaters", category: "climate", quantity: 6, condition: "poor", last_maintenance_date: "2026-03-12" },
+]
+
 export default async function EquipmentPage() {
   const supabase = await createServerClient()
-  if (!supabase) return (
-    <div className="container mx-auto px-4 py-16 text-center text-muted-foreground">
-      This section uses live data. Connect a Supabase project to view it. <span className="text-foreground/70">(Demo mode)</span>
-    </div>
-  )
 
-  const { data: equipment } = await supabase.from("equipment").select("*").order("category")
+  let equipment: any[] = MOCK_EQUIPMENT
+  if (supabase) {
+    equipment = (await supabase.from("equipment").select("*").order("category")).data || []
+  }
 
   const groupedEquipment = equipment?.reduce((acc: any, item: any) => {
     const category = item.category || "Other"
