@@ -1,6 +1,6 @@
 // Mock data storage using localStorage
 // Bump the suffix whenever the seed shape/volume changes to force a reseed.
-const STORAGE_KEY = "trailside_yoga_mock_data_v2"
+const STORAGE_KEY = "trailside_yoga_mock_data_v3"
 
 export interface MockUser {
   id: string
