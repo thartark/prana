@@ -17,6 +17,10 @@ import { getMockDataManager } from "@/lib/mock-data"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Menu } from "lucide-react"
+import { cn } from "@/lib/utils"
+
+type Persona = "member" | "instructor" | "owner"
+const PERSONA_KEY = "trailside_demo_persona"
 
 export function MainNav() {
   const pathname = usePathname()
@@ -24,8 +28,19 @@ export function MainNav() {
   const [user, setUser] = useState<any>(null)
   const [profile, setProfile] = useState<any>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [persona, setPersona] = useState<Persona>("owner")
   const supabase = createBrowserClient()
   const useMockMode = !supabase
+
+  useEffect(() => {
+    const saved = typeof window !== "undefined" ? (localStorage.getItem(PERSONA_KEY) as Persona | null) : null
+    if (saved === "member" || saved === "instructor" || saved === "owner") setPersona(saved)
+  }, [])
+
+  const changePersona = (p: Persona) => {
+    setPersona(p)
+    if (typeof window !== "undefined") localStorage.setItem(PERSONA_KEY, p)
+  }
 
   useEffect(() => {
     const getUser = async () => {
@@ -69,21 +84,23 @@ export function MainNav() {
     router.refresh()
   }
 
-  const isAdmin = profile?.role === "admin"
-  const isInstructor = profile?.role === "instructor"
+  // In demo mode the persona switcher drives role; otherwise use the real profile role.
+  const isAdmin = useMockMode ? persona === "owner" : profile?.role === "admin"
+  const isInstructor = useMockMode ? persona === "instructor" : profile?.role === "instructor"
 
   // Don't show nav on auth pages
   if (pathname?.startsWith("/auth")) {
     return null
   }
 
+  // Admin is intentionally NOT a public nav link — it's gated to the Owner persona
+  // (in demo) / admin role (in prod) via the button on the right.
   const navLinks = [
     { href: "/classes", label: "Classes" },
     { href: "/instructors", label: "Instructors" },
     { href: "/workshops", label: "Workshops" },
     { href: "/memberships", label: "Plans" },
     { href: "/shop", label: "Shop" },
-    { href: "/admin", label: "Admin" },
   ]
 
   return (
@@ -190,6 +207,24 @@ export function MainNav() {
                     {link.label}
                   </Link>
                 ))}
+                {isAdmin && (
+                  <Link
+                    href="/admin"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-lg font-medium text-muted-foreground hover:text-primary"
+                  >
+                    Admin
+                  </Link>
+                )}
+                {isInstructor && (
+                  <Link
+                    href="/instructor/dashboard"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-lg font-medium text-muted-foreground hover:text-primary"
+                  >
+                    Instructor
+                  </Link>
+                )}
                 {!user && (
                   <>
                     <hr className="my-2" />
@@ -208,8 +243,24 @@ export function MainNav() {
         </div>
       </div>
       {useMockMode && (
-        <div className="bg-yellow-500/10 border-b border-yellow-500/20 px-4 py-1 text-center text-xs text-yellow-700 dark:text-yellow-400">
-          Running in demo mode with sample data
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 border-b border-yellow-500/20 bg-yellow-500/10 px-4 py-1.5 text-xs text-yellow-700 dark:text-yellow-400">
+          <span>Demo mode — explore as:</span>
+          <div className="flex overflow-hidden rounded-md border border-yellow-500/30">
+            {(["member", "instructor", "owner"] as const).map((p) => (
+              <button
+                key={p}
+                onClick={() => changePersona(p)}
+                className={cn(
+                  "px-2.5 py-0.5 capitalize transition-colors",
+                  persona === p
+                    ? "bg-yellow-500/30 font-medium text-yellow-900 dark:text-yellow-100"
+                    : "hover:bg-yellow-500/10",
+                )}
+              >
+                {p}
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </header>
