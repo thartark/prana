@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server"
 import { getMockData } from "@/lib/mock-data"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { ReportsOwnerMetrics } from "@/components/reports-owner-metrics"
 
 export default async function ReportsPage() {
   const supabase = await createClient()
@@ -165,6 +166,8 @@ export default async function ReportsPage() {
           </Table>
         </CardContent>
       </Card>
+
+      <ReportsOwnerMetrics />
     </div>
   )
 }
