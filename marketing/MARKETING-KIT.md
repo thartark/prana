@@ -396,6 +396,26 @@ Use to position, not to trash-talk. Lead with what Prana *is*, not what they are
 
 ---
 
+## 17. Building your prospect list
+
+To find studios to call, use the companion file
+**[`PROSPECTING-PROMPTS.md`](./PROSPECTING-PROMPTS.md)** — paste-ready prompts you
+drop into an AI *with live web access* (Perplexity, ChatGPT/Gemini/Claude with
+search) to build verified lists of studios by type and area. It includes:
+
+- One prompt per studio type — yoga, Pilates, barre, cycle/boutique fitness,
+  new/opening-soon, multi-location, and **studios already on Mindbody** (your
+  warmest list).
+- A **ZIP-code batch** prompt with a paste block for sweeping specific ZIPs.
+- A **big-markets ZIP list** (LA, SD, NYC, Austin, Denver/Boulder, etc.) to seed it.
+- Helpers to verify an owner, **detect what software a studio runs today**,
+  personalize outreach for one studio, and pick which market to work first.
+
+Rule of thumb: prospects on expensive legacy software (Mindbody) are the warmest;
+new/opening studios are the easiest first-time wins.
+
+---
+
 *Numbers, features, and pricing in this kit describe the Prana demo and product
 direction as of August 2026. Keep every claim tied to what the live demo actually
 shows — sell the real thing and you'll never have to walk anything back. Built by
