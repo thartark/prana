@@ -342,10 +342,9 @@ Everything below is live at **prana-nu.vercel.app** — no login required.
   desk loses to it?" Then a flat monthly is easy.
 - **Lead with the demo** to remove risk: "Walk it first, decide with the product
   in front of you."
-- **Suggested ladder** (adjust to your market):
-  - **Starter** — solo / one location, core booking + memberships.
-  - **Growth** — one location, full admin + owner reports + retail.
-  - **Studio+ / Multi** — 2+ locations, per-location pricing.
+- **Suggested ladder** — **Starter $129 / Growth $199 / Studio+ $349** per month.
+  Full breakdown, competitor benchmarks, and levers in
+  [`PRICING.md`](./PRICING.md).
 - **Founding rate as honest urgency:** "First 10 studios lock their rate for life
   and I handle setup personally."
 - **Annual saves two months** — offer it to anyone who's decided.

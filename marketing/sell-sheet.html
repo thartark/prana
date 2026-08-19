@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Prana — One-Page Sell Sheet</title>
+<style>
+  @page { size: 8.5in 11in; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #4b424a; background: #ffffff; }
+  .page { width: 8.5in; height: 11in; padding: 0.55in 0.6in; background: #fbf6f7; display: flex; flex-direction: column; }
+  .violet { color: #6d5ae0; }
+  header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #e8ddec; padding-bottom: 12px; }
+  .brand { font-size: 26px; font-weight: 800; color: #322b39; }
+  .brand small { font-size: 13px; font-weight: 500; color: #8a7f92; margin-left: 8px; }
+  .url { font-size: 13px; font-weight: 700; color: #6d5ae0; }
+  h1 { font-size: 30px; font-weight: 800; color: #322b39; margin-top: 18px; line-height: 1.12; }
+  .sub { font-size: 14px; color: #6b6272; margin-top: 6px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .persona { background: #fff; border: 1px solid #ece3ef; border-radius: 12px; padding: 12px 14px; }
+  .persona b { display: block; font-size: 13px; color: #6d5ae0; text-transform: uppercase; letter-spacing: .04em; }
+  .persona span { font-size: 13px; color: #574a5c; }
+  .sec { margin-top: 18px; }
+  .sec h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: #8a7f92; margin-bottom: 10px; }
+  .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; }
+  .chip { font-size: 13.5px; color: #4b424a; padding-left: 18px; position: relative; }
+  .chip::before { content: ""; position: absolute; left: 0; top: 6px; width: 8px; height: 8px; border-radius: 50%; background: #6d5ae0; }
+  .why { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
+  .why div { background: #efe9f7; border-radius: 10px; padding: 10px 12px; }
+  .why b { display: block; font-size: 16px; color: #6d5ae0; }
+  .why span { font-size: 11.5px; color: #574a5c; }
+  .pricing { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .tier { border: 1px solid #ece3ef; border-radius: 12px; padding: 14px; background: #fff; }
+  .tier.pop { border-color: #6d5ae0; box-shadow: 0 0 0 1px #6d5ae0; }
+  .tier .name { font-size: 13px; font-weight: 700; color: #322b39; }
+  .tier .pop-tag { font-size: 10px; font-weight: 700; color: #6d5ae0; text-transform: uppercase; letter-spacing:.05em; }
+  .tier .price { font-size: 26px; font-weight: 800; color: #322b39; margin: 4px 0; }
+  .tier .price small { font-size: 13px; font-weight: 500; color: #8a7f92; }
+  .tier .desc { font-size: 12px; color: #574a5c; }
+  .foot { margin-top: auto; border-top: 2px solid #e8ddec; padding-top: 12px; display: flex; justify-content: space-between; align-items: center; }
+  .cta { font-size: 14px; color: #322b39; }
+  .cta b { color: #6d5ae0; }
+  .ctabtn { background: #6d5ae0; color: #fff; font-weight: 700; font-size: 13px; padding: 9px 16px; border-radius: 999px; }
+  .note { font-size: 10px; color: #a39aad; margin-top: 8px; text-align: center; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">Prana <small>by Hayarta</small></div>
+      <div class="url">prana-nu.vercel.app</div>
+    </header>
+
+    <h1>The whole studio, in one <span class="violet">calm</span> app.</h1>
+    <div class="sub">All-in-one management software for boutique studios — the owner-friendly alternative to Mindbody. Booking members love, a back-office you can run, and numbers you can finally read.</div>
+
+    <div class="row3">
+      <div class="persona"><b>Members</b><span>Book a class in two taps. Waitlists, class packs, memberships.</span></div>
+      <div class="persona"><b>Instructors</b><span>Their day, their classes, their pay — one clean view.</span></div>
+      <div class="persona"><b>Owners</b><span>Scheduling to finances to profitability, all in one place.</span></div>
+    </div>
+
+    <div class="sec">
+      <h2>What Prana runs</h2>
+      <div class="chips">
+        <div class="chip">Class scheduling &amp; recurring series</div>
+        <div class="chip">Memberships, tiers &amp; class packs</div>
+        <div class="chip">Two-tap booking &amp; auto-promoting waitlists</div>
+        <div class="chip">Retail &amp; point of sale</div>
+        <div class="chip">Staff, instructors &amp; scheduling</div>
+        <div class="chip">Finances &amp; payouts</div>
+        <div class="chip">Owner reports — profitability &amp; utilization</div>
+        <div class="chip">Retention &amp; at-risk member insights</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>Why studios switch</h2>
+      <div class="why">
+        <div><b>Calm UX</b><span>Members actually use it</span></div>
+        <div><b>Flat pricing</b><span>No per-transaction skim</span></div>
+        <div><b>Free migration</b><span>We move you over</span></div>
+        <div><b>Real numbers</b><span>Revenue/class hour, LTV</span></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>Pricing <span style="text-transform:none;letter-spacing:0;color:#a39aad;">(founding rate — first 10 studios lock 25% off for life)</span></h2>
+      <div class="pricing">
+        <div class="tier">
+          <div class="name">Starter</div>
+          <div class="price">$129<small>/mo</small></div>
+          <div class="desc">One location, core booking + memberships. For new &amp; solo studios.</div>
+        </div>
+        <div class="tier pop">
+          <div class="pop-tag">Most popular</div>
+          <div class="name">Growth</div>
+          <div class="price">$199<small>/mo</small></div>
+          <div class="desc">Full admin — waitlist automation, retail, staff, owner reports.</div>
+        </div>
+        <div class="tier">
+          <div class="name">Studio+</div>
+          <div class="price">$349<small>/mo</small></div>
+          <div class="desc">2–3 locations, cross-location reporting. +$99/mo per extra location.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>Getting started</h2>
+      <div class="row3">
+        <div class="persona"><b>1 · Walk the demo</b><span>See the member, instructor &amp; owner views yourself — no login.</span></div>
+        <div class="persona"><b>2 · We migrate you</b><span>Free white-glove move from Mindbody — clients, classes, pricing.</span></div>
+        <div class="persona"><b>3 · Go live</b><span>Members booking in two taps, front desk running it, day one.</span></div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="cta">See it live: <b>walk the Member, Instructor &amp; Owner views</b> in the demo — no login.</div>
+      <div class="ctabtn">prana-nu.vercel.app</div>
+    </div>
+    <div class="note">Annual plans include 2 months free. Pricing is illustrative — confirm current rates. Built by Hayarta · hello@trailsideyoga.com</div>
+  </div>
+</body>
+</html>
