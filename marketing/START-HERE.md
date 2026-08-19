@@ -8,7 +8,8 @@ in order. That's it.
 ## Step 1 — Get a list of studios to call (10 min)
 
 Open **ChatGPT, Perplexity, or Claude with web search turned ON**. Paste the block
-below. Change `[YOUR CITY]` to your city (or a nearby big one), then send.
+below and send. It's already pointed at a strong first market (Santa Monica +
+Venice, LA) — **swap in your own city if you'd rather start local.**
 
 ```
 You are a B2B sales-research assistant WITH LIVE WEB ACCESS. Build me a verified
@@ -19,7 +20,7 @@ calm alternative to Mindbody. I sell to the studio OWNER.
 
 Find 20 REAL, independent boutique studios (yoga, Pilates, or barre) that appear
 to use MINDBODY, in or near:
-  [YOUR CITY]
+  Santa Monica and Venice, Los Angeles, CA
 
 They're on Mindbody if their website's "Book"/"Schedule" link goes to
 clients.mindbodyonline.com or shows a Mindbody widget. Confirm the signal per row.
