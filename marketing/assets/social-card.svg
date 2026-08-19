@@ -1,0 +1,69 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2b2440"/>
+      <stop offset="1" stop-color="#211c2d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="-0.1" r="0.9">
+      <stop offset="0" stop-color="#8b7cf6" stop-opacity="0.28"/>
+      <stop offset="0.6" stop-color="#8b7cf6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Wordmark -->
+  <text x="72" y="98" font-size="38" font-weight="700" fill="#f1e9ef">Prana</text>
+  <text x="182" y="98" font-size="20" fill="#b3a7c4">by Hayarta</text>
+
+  <!-- Headline -->
+  <text x="72" y="248" font-size="66" font-weight="800" fill="#f1e9ef">The whole studio,</text>
+  <text x="72" y="322" font-size="66" font-weight="800" fill="#f1e9ef">in one <tspan fill="#a99bf9">calm</tspan> app.</text>
+
+  <!-- Subhead -->
+  <text x="74" y="392" font-size="26" fill="#c4b9d0">Booking members love — and the back-office</text>
+  <text x="74" y="428" font-size="26" fill="#c4b9d0">owners can finally read.</text>
+
+  <!-- URL pill -->
+  <rect x="72" y="520" width="330" height="56" rx="28" fill="#8b7cf6"/>
+  <text x="237" y="556" font-size="24" font-weight="600" fill="#140f2e" text-anchor="middle">prana-nu.vercel.app</text>
+
+  <!-- Schedule motif card -->
+  <g transform="translate(772,150)">
+    <rect width="356" height="330" rx="20" fill="#322b39" stroke="#4a4051" stroke-width="1"/>
+    <text x="28" y="52" font-size="22" font-weight="700" fill="#f1e9ef">Today</text>
+    <text x="28" y="78" font-size="14" fill="#b3a7c4">Book in two taps</text>
+
+    <!-- row 1 -->
+    <g transform="translate(24,104)">
+      <rect width="308" height="60" rx="12" fill="#2a2434"/>
+      <text x="18" y="27" font-size="16" font-weight="700" fill="#f1e9ef">6:00 AM</text>
+      <text x="18" y="47" font-size="13" fill="#b3a7c4">Power Yoga · Emma</text>
+      <rect x="196" y="16" width="52" height="28" rx="14" fill="#1f3a2e"/>
+      <text x="222" y="35" font-size="12" fill="#6ee7b7" text-anchor="middle">9 open</text>
+      <rect x="256" y="14" width="40" height="32" rx="10" fill="#8b7cf6"/>
+      <text x="276" y="35" font-size="12" font-weight="700" fill="#140f2e" text-anchor="middle">Book</text>
+    </g>
+    <!-- row 2 -->
+    <g transform="translate(24,176)">
+      <rect width="308" height="60" rx="12" fill="#2a2434"/>
+      <text x="18" y="27" font-size="16" font-weight="700" fill="#f1e9ef">9:00 AM</text>
+      <text x="18" y="47" font-size="13" fill="#b3a7c4">Vinyasa Flow · Sarah</text>
+      <rect x="196" y="16" width="52" height="28" rx="14" fill="#1f3a2e"/>
+      <text x="222" y="35" font-size="12" fill="#6ee7b7" text-anchor="middle">4 left</text>
+      <rect x="256" y="14" width="40" height="32" rx="10" fill="#8b7cf6"/>
+      <text x="276" y="35" font-size="12" font-weight="700" fill="#140f2e" text-anchor="middle">Book</text>
+    </g>
+    <!-- row 3 -->
+    <g transform="translate(24,248)">
+      <rect width="308" height="60" rx="12" fill="#2a2434"/>
+      <text x="18" y="27" font-size="16" font-weight="700" fill="#f1e9ef">5:30 PM</text>
+      <text x="18" y="47" font-size="13" fill="#b3a7c4">Hot Yoga · Emma</text>
+      <rect x="196" y="16" width="52" height="28" rx="14" fill="#3a1f24"/>
+      <text x="222" y="35" font-size="12" fill="#fca5a5" text-anchor="middle">Full</text>
+      <rect x="248" y="14" width="48" height="32" rx="10" fill="none" stroke="#8b7cf6" stroke-width="1.5"/>
+      <text x="272" y="35" font-size="11" font-weight="700" fill="#a99bf9" text-anchor="middle">Wait</text>
+    </g>
+  </g>
+</svg>

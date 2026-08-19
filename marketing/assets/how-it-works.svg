@@ -1,0 +1,57 @@
+<svg width="1200" height="470" viewBox="0 0 1200 470" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2b2440"/>
+      <stop offset="1" stop-color="#211c2d"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="470" fill="url(#bg2)"/>
+
+  <text x="72" y="80" font-size="34" font-weight="800" fill="#f1e9ef">How Prana runs a studio</text>
+  <text x="72" y="114" font-size="19" fill="#b3a7c4">One system, three seats — members, staff, and owner.</text>
+
+  <!-- Steps -->
+  <g transform="translate(72,168)">
+    <!-- Step 1 -->
+    <g>
+      <rect width="320" height="232" rx="20" fill="#322b39" stroke="#4a4051" stroke-width="1"/>
+      <circle cx="46" cy="52" r="26" fill="#8b7cf6"/>
+      <text x="46" y="61" font-size="26" font-weight="800" fill="#140f2e" text-anchor="middle">1</text>
+      <text x="30" y="118" font-size="24" font-weight="700" fill="#f1e9ef">Members book</text>
+      <text x="30" y="150" font-size="24" font-weight="700" fill="#f1e9ef">in two taps</text>
+      <text x="30" y="188" font-size="16" fill="#b3a7c4">A schedule they actually</text>
+      <text x="30" y="210" font-size="16" fill="#b3a7c4">use — with waitlists.</text>
+    </g>
+
+    <!-- Arrow 1 -->
+    <path d="M 336 116 L 372 116" stroke="#8b7cf6" stroke-width="3" fill="none"/>
+    <path d="M 366 108 L 376 116 L 366 124 Z" fill="#8b7cf6"/>
+
+    <!-- Step 2 -->
+    <g transform="translate(388,0)">
+      <rect width="320" height="232" rx="20" fill="#322b39" stroke="#4a4051" stroke-width="1"/>
+      <circle cx="46" cy="52" r="26" fill="#8b7cf6"/>
+      <text x="46" y="61" font-size="26" font-weight="800" fill="#140f2e" text-anchor="middle">2</text>
+      <text x="30" y="118" font-size="24" font-weight="700" fill="#f1e9ef">You run it all</text>
+      <text x="30" y="150" font-size="24" font-weight="700" fill="#f1e9ef">in one place</text>
+      <text x="30" y="188" font-size="16" fill="#b3a7c4">Scheduling, memberships,</text>
+      <text x="30" y="210" font-size="16" fill="#b3a7c4">retail, staff, finances.</text>
+    </g>
+
+    <!-- Arrow 2 -->
+    <path d="M 724 116 L 760 116" stroke="#8b7cf6" stroke-width="3" fill="none"/>
+    <path d="M 754 108 L 764 116 L 754 124 Z" fill="#8b7cf6"/>
+
+    <!-- Step 3 -->
+    <g transform="translate(776,0)">
+      <rect width="320" height="232" rx="20" fill="#322b39" stroke="#4a4051" stroke-width="1"/>
+      <circle cx="46" cy="52" r="26" fill="#8b7cf6"/>
+      <text x="46" y="61" font-size="26" font-weight="800" fill="#140f2e" text-anchor="middle">3</text>
+      <text x="30" y="118" font-size="24" font-weight="700" fill="#f1e9ef">Owners see the</text>
+      <text x="30" y="150" font-size="24" font-weight="700" fill="#f1e9ef">real numbers</text>
+      <text x="30" y="188" font-size="16" fill="#b3a7c4">Revenue per class hour,</text>
+      <text x="30" y="210" font-size="16" fill="#b3a7c4">utilization, who's churning.</text>
+    </g>
+  </g>
+</svg>

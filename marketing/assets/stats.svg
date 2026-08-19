@@ -1,0 +1,48 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2b2440"/>
+      <stop offset="1" stop-color="#211c2d"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="600" fill="url(#bg3)"/>
+
+  <text x="72" y="86" font-size="36" font-weight="800" fill="#f1e9ef">Why studios switch to Prana</text>
+  <text x="72" y="122" font-size="20" fill="#b3a7c4">The calm, owner-friendly alternative to Mindbody.</text>
+
+  <!-- Tile grid: 3 cols x 2 rows -->
+  <!-- Row 1 -->
+  <g transform="translate(72,168)">
+    <rect width="330" height="180" rx="20" fill="#322b39" stroke="#4a4051" stroke-width="1"/>
+    <text x="28" y="96" font-size="62" font-weight="800" fill="#a99bf9">2 taps</text>
+    <text x="28" y="134" font-size="18" fill="#c4b9d0">to book a class — no reload</text>
+  </g>
+  <g transform="translate(434,168)">
+    <rect width="330" height="180" rx="20" fill="#322b39" stroke="#4a4051" stroke-width="1"/>
+    <text x="28" y="96" font-size="62" font-weight="800" fill="#a99bf9">1 app</text>
+    <text x="28" y="134" font-size="18" fill="#c4b9d0">the whole studio, one login</text>
+  </g>
+  <g transform="translate(796,168)">
+    <rect width="330" height="180" rx="20" fill="#322b39" stroke="#4a4051" stroke-width="1"/>
+    <text x="28" y="96" font-size="62" font-weight="800" fill="#a99bf9">3 roles</text>
+    <text x="28" y="134" font-size="18" fill="#c4b9d0">member · instructor · owner</text>
+  </g>
+
+  <!-- Row 2 -->
+  <g transform="translate(72,372)">
+    <rect width="330" height="180" rx="20" fill="#322b39" stroke="#4a4051" stroke-width="1"/>
+    <text x="28" y="96" font-size="62" font-weight="800" fill="#a99bf9">5 reports</text>
+    <text x="28" y="134" font-size="18" fill="#c4b9d0">owners actually ask for</text>
+  </g>
+  <g transform="translate(434,372)">
+    <rect width="330" height="180" rx="20" fill="#322b39" stroke="#4a4051" stroke-width="1"/>
+    <text x="28" y="96" font-size="62" font-weight="800" fill="#a99bf9">$0</text>
+    <text x="28" y="134" font-size="18" fill="#c4b9d0">per-transaction skim — flat pricing</text>
+  </g>
+  <g transform="translate(796,372)">
+    <rect width="330" height="180" rx="20" fill="#322b39" stroke="#4a4051" stroke-width="1"/>
+    <text x="28" y="96" font-size="62" font-weight="800" fill="#a99bf9">Free</text>
+    <text x="28" y="134" font-size="18" fill="#c4b9d0">migration — we move you over</text>
+  </g>
+</svg>

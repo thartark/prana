@@ -414,6 +414,25 @@ search) to build verified lists of studios by type and area. It includes:
 Rule of thumb: prospects on expensive legacy software (Mindbody) are the warmest;
 new/opening studios are the easiest first-time wins.
 
+**Track your outreach** in [`prospect-tracker-template.csv`](./prospect-tracker-template.csv)
+— open it in Sheets/Excel, drop the AI's results in, and use the Status /
+Last Touch / Next Touch columns to run the 12-day cadence in §11.
+
+---
+
+## 18. Graphics ([`./assets`](./assets))
+
+| File | Use it for |
+| --- | --- |
+| `social-card.svg` | LinkedIn/X post image, email header, deck cover (1200×630) |
+| `how-it-works.svg` | Explaining the flow — decks, emails, the "what is this" reply |
+| `stats.svg` | A "why switch" slide, a value post, credibility in a cold email |
+
+**Turning SVG into PNG/JPG** (for platforms that don't take SVG): open the file in
+a browser and screenshot it, or drag it into any design tool (Canva, Figma,
+Preview on Mac → Export). They're vector, so they stay crisp at any size. Colors
+match the app exactly — violet **#8b7cf6 / #6d5ae0** on warm plum.
+
 ---
 
 *Numbers, features, and pricing in this kit describe the Prana demo and product
